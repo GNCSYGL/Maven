@@ -3,6 +3,7 @@ package automationexercise;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import utilities.TestBase;
 
@@ -37,15 +38,41 @@ public class Soru01 extends TestBase {
         waitFor(3);
 
         //7. Click 'Signup' button
-        driver.findElement(By.xpath("//*[@type='submit']")).click();
+        driver.findElement(By.xpath("//*[@data-qa='signup-button']")).click();
 
         //8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
+        String actuelEAI = driver.getTitle();
+        String expectedEAI = "ENTER ACCOUNT INFORMATION";
+        Assert.assertTrue(actuelEAI.equals(expectedEAI));
+
         //9. Fill details: Title, Name, Email, Password, Date of birth
+        driver.findElement(By.id("id_gender2")).click();
+        driver.findElement(By.id("name"));
+        driver.findElement(By.id("password")).sendKeys("1234");
+        driver.findElement(By.xpath("//*[@id='days']")).sendKeys("22");
+        driver.findElement(By.xpath("//*[@id='months']")).sendKeys("September");
+        driver.findElement(By.xpath("//*[@id='years']")).sendKeys("1988");
+
+
         //10. Select checkbox 'Sign up for our newsletter!'
+        driver.findElement(By.xpath("//*[@id='newsletter']")).click();
+
         //11. Select checkbox 'Receive special offers from our partners!'
+        driver.findElement(By.xpath("//*[@id='optin']")).click();
+
         //12. Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
+        driver.findElement(By.xpath("//*[@id='first_name']"))
+                .sendKeys("GNC",Keys.TAB,"SYGL",Keys.TAB,"ISTANBUL",Keys.TAB,"Maltepe",Keys.TAB,"IST",
+                        Keys.TAB,"Canada",Keys.TAB,"Cnd",Keys.TAB,"C",Keys.TAB,"12345",Keys.TAB,"05365897454");
+
         //13. Click 'Create Account button'
+        driver.findElement(By.xpath("//*[@data-qa='create-account']")).click();
+
         //14. Verify that 'ACCOUNT CREATED!' is visible
+        String accountCreated = driver.getTitle();
+        String expectedCreated = "ACCOUNT CREATED!";
+        Assert.assertTrue(accountCreated.equals(expectedCreated));
+
         //15. Click 'Continue' button
         //16. Verify that 'Logged in as username' is visible
         //17. Click 'Delete Account' button
