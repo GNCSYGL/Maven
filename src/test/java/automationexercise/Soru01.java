@@ -34,14 +34,14 @@ public class Soru01 extends TestBase {
 
         //6. Enter name and email address
         driver.findElement(By.cssSelector("input[data-qa='signup-name']")).sendKeys("Gonca");
-        driver.findElement(By.cssSelector("input[data-qa='signup-email']")).sendKeys("goncasaygili@gmail.com");
+        driver.findElement(By.cssSelector("input[data-qa='signup-email']")).sendKeys("gsaygili@gmail.com");
         waitFor(3);
 
         //7. Click 'Signup' button
         driver.findElement(By.xpath("//*[@data-qa='signup-button']")).click();
 
         //8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
-        String actuelEAI = driver.getTitle();
+        String actuelEAI = driver.findElement(By.xpath("//h2[@class='title text-center']")).getText();
         String expectedEAI = "ENTER ACCOUNT INFORMATION";
         Assert.assertTrue(actuelEAI.equals(expectedEAI));
 
@@ -51,14 +51,14 @@ public class Soru01 extends TestBase {
         driver.findElement(By.id("password")).sendKeys("1234");
         driver.findElement(By.xpath("//*[@id='days']")).sendKeys("22");
         driver.findElement(By.xpath("//*[@id='months']")).sendKeys("September");
-        driver.findElement(By.xpath("//*[@id='years']")).sendKeys("1988");
+        driver.findElement(By.xpath("//*[@id='years']")).sendKeys("1988" + Keys.TAB + Keys.ENTER + Keys.TAB + Keys.ENTER);
 
 
-        //10. Select checkbox 'Sign up for our newsletter!'
-        driver.findElement(By.xpath("//*[@id='newsletter']")).click();
-
-        //11. Select checkbox 'Receive special offers from our partners!'
-        driver.findElement(By.xpath("//*[@id='optin']")).click();
+//        //10. Select checkbox 'Sign up for our newsletter!'
+//        driver.findElement(By.xpath("//*[@id='newsletter']")).click();
+//
+//        //11. Select checkbox 'Receive special offers from our partners!'
+//        driver.findElement(By.xpath("//*[@id='optin']")).click();
 
         //12. Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
         driver.findElement(By.xpath("//*[@id='first_name']"))
