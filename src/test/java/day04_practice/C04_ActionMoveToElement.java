@@ -7,6 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import utilities.TestBase;
 
+import java.util.Set;
+
 public class C04_ActionMoveToElement extends TestBase {
 
     @Test
@@ -36,6 +38,9 @@ public class C04_ActionMoveToElement extends TestBase {
         driver.findElement(By.xpath("//*[@id='icp-save-button']")).click();
 
         // acilan yeni sayfadanin Title'inin Elektronik icerdigini test ediniz
+        Set<String> windowHandleSeti = driver.getWindowHandles();
+
+
 
 
 
