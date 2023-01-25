@@ -1,5 +1,8 @@
 package utilities;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -27,6 +30,17 @@ public abstract class TestBase {
 //    driver objesini olustur. Driver ya public yada protected olmali.
 //    Sebepi child classlarda gorulebilir olmasi
     protected static WebDriver driver;
+
+    /*
+    1- <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports --> pom.xml'e yuklenecek
+    2- Eger extentReport almak istersek ilk yapmamiz gereken ExtentReport class'indan bir obje olusturmak
+    3- html formatinda duzenlenecegi icin ExtentHtmlReporter class'indan obje olusturmak.
+     */
+    ExtentReports extentReports; //Raporlamayi baslatiriz.
+    ExtentHtmlReporter extentHtmlReporter; //Raporumu html formatinda duzenler
+    protected ExtentTest extentTest; //Test aşamalarına extentTest objesi ile bilgi ekleriz
+
+
     //    setUp
     @Before
     public void setup(){
@@ -35,12 +49,21 @@ public abstract class TestBase {
 //        driver=WebDriverManager.chromedriver().create();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+// ------------------------------------------------------------------------
+        String tarih = new SimpleDateFormat("hh_mm_ss_ddMMyyyy").format(new Date());
+        String dosyaYolu = "target/ExtentReports/htmlreport"+tarih+".html";
+        extentHtmlReporter = new ExtentHtmlReporter(dosyaYolu);
+        extentReports.attachReporter(extentHtmlReporter);
+        //Raporda gözükmesini istediğimiz bilgiler için
+        extentReports.setSystemInfo("Browser","Chrome");
+        extentReports.setSystemInfo("Tester","Gonca");
     }
     //    tearDown
     @After
     public void tearDown(){
 //        waitFor(5);
 //        driver.quit();
+        extentReports.flush();
     }
     //    MULTIPLE WINDOW:
 //    1 parametre alir : Gecis Yapmak Istedigim sayfanin Title
